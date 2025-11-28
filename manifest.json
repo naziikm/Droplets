@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Idea Drip",
+  "version": "1.0",
+  "description": "A tiny glowing droplet delivers one idea every hour.",
+  "permissions": ["alarms", "storage", "activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "128": "assets/droplet.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles/droplet.css"]
+    }
+  ]
+}
