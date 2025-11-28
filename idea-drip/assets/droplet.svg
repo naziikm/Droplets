@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 70" width="50" height="70">
+  <defs>
+    <!-- Gradient for the droplet body -->
+    <linearGradient id="dropletGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5a3d8a;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Highlight gradient -->
+    <linearGradient id="highlightGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </linearGradient>
+    
+    <!-- Glow filter -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Main droplet shape -->
+  <path 
+    d="M25 5 
+       C25 5 45 30 45 45 
+       C45 57 36 65 25 65 
+       C14 65 5 57 5 45 
+       C5 30 25 5 25 5 Z" 
+    fill="url(#dropletGradient)"
+    filter="url(#glow)"
+  />
+  
+  <!-- Highlight reflection -->
+  <ellipse 
+    cx="18" 
+    cy="35" 
+    rx="8" 
+    ry="12" 
+    fill="url(#highlightGradient)"
+    opacity="0.7"
+  />
+  
+  <!-- Small sparkle -->
+  <circle cx="15" cy="28" r="2" fill="white" opacity="0.8"/>
+</svg>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate Icons for Idea Drip</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    canvas { border: 1px solid #ccc; margin: 10px; }
+    .icon-container { display: inline-block; text-align: center; margin: 20px; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 10px; }
+    a { display: block; margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <h1>Idea Drip Icon Generator</h1>
+  <p>Click the buttons to download each icon, then save them to the assets folder.</p>
+  
+  <div class="icon-container">
+    <canvas id="icon16" width="16" height="16"></canvas>
+    <br><button onclick="downloadIcon(16)">Download 16x16</button>
+  </div>
+  
+  <div class="icon-container">
+    <canvas id="icon48" width="48" height="48"></canvas>
+    <br><button onclick="downloadIcon(48)">Download 48x48</button>
+  </div>
+  
+  <div class="icon-container">
+    <canvas id="icon128" width="128" height="128"></canvas>
+    <br><button onclick="downloadIcon(128)">Download 128x128</button>
+  </div>
+
+  <script>
+    function drawDroplet(ctx, size) {
+      const scale = size / 128;
+      
+      // Create gradient
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, '#667eea');
+      gradient.addColorStop(0.5, '#764ba2');
+      gradient.addColorStop(1, '#5a3d8a');
+      
+      // Draw droplet shape
+      ctx.beginPath();
+      ctx.moveTo(64 * scale, 8 * scale);
+      ctx.bezierCurveTo(
+        64 * scale, 8 * scale,
+        112 * scale, 56 * scale,
+        112 * scale, 84 * scale
+      );
+      ctx.bezierCurveTo(
+        112 * scale, 108 * scale,
+        90 * scale, 120 * scale,
+        64 * scale, 120 * scale
+      );
+      ctx.bezierCurveTo(
+        38 * scale, 120 * scale,
+        16 * scale, 108 * scale,
+        16 * scale, 84 * scale
+      );
+      ctx.bezierCurveTo(
+        16 * scale, 56 * scale,
+        64 * scale, 8 * scale,
+        64 * scale, 8 * scale
+      );
+      ctx.closePath();
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      
+      // Add highlight
+      ctx.beginPath();
+      ctx.ellipse(45 * scale, 72 * scale, 14 * scale, 22 * scale, 0, 0, 2 * Math.PI);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+      ctx.fill();
+      
+      // Add sparkle
+      ctx.beginPath();
+      ctx.arc(38 * scale, 56 * scale, 5 * scale, 0, 2 * Math.PI);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+      ctx.fill();
+    }
+    
+    // Draw all icons
+    [16, 48, 128].forEach(size => {
+      const canvas = document.getElementById('icon' + size);
+      const ctx = canvas.getContext('2d');
+      drawDroplet(ctx, size);
+    });
+    
+    function downloadIcon(size) {
+      const canvas = document.getElementById('icon' + size);
+      const link = document.createElement('a');
+      link.download = 'icon' + size + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+  </script>
+</body>
+</html>
